@@ -78,9 +78,29 @@ public class Tester {
 		ArrayList<Integer> tags = new ArrayList<Integer>(); 
 		for (int i = 0; i < c.tags.size(); i++) tags.add(i); 
 		
-		ArrayList<Integer> sets = setCover(udg.listBipGraph, tags);
+		
+		// Computing the set cover
+		ArrayList<ArrayList<Integer> > copyBipGraph = new ArrayList<ArrayList<Integer> >();
+		copyBipGraph.addAll(udg.listBipGraph);
+		ArrayList<Integer> sets = setCover(copyBipGraph, tags);
+		
+		
+		
+		System.out.println("Printing the set cover indices");
 		for (int i = 0; i < sets.size(); i++) { 
 			System.out.printf("%d ", sets.get(i));
+		}
+		System.out.println();
+		
+		
+		// printing the cover sets elements: 
+		System.out.println("Printing the set cover elements");
+		for (int i = 0; i < sets.size(); i++) { 
+			System.out.printf("%d: ", sets.get(i)); 
+			for (int j = 0; j < udg.listBipGraph.get(sets.get(i)).size(); j++ ) { 
+				System.out.printf("%d ", udg.listBipGraph.get(sets.get(i)).get(j) );
+			}
+			System.out.println();
 		}
 		
 	}
@@ -133,7 +153,7 @@ public class Tester {
 			iteration ++;
 		}
 		
-		System.out.println("going out");
+		// System.out.println("going out");
 		
 		return sets;
 	}
