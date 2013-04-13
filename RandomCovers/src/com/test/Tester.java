@@ -3,6 +3,7 @@ package com.test;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -102,6 +103,43 @@ public class Tester {
 			}
 			System.out.println();
 		}
+		
+	}
+	
+	
+	public static boolean isSetCover(
+			ArrayList<ArrayList<Integer> > setCover, 
+			ArrayList<Integer> elements) {
+	
+		// An efficient way to do this is to create a map 
+		// for elements and a boolean next to them. 
+		// We just assume that elements are from 0 to elements.size() - 1;
+		HashMap<Integer, Boolean> hmap = new HashMap<Integer, Boolean>();
+		for (int i = 0; i < elements.size(); i ++) { 
+			hmap.put(elements.get(i), false);
+		}
+		
+		// mark elements as marked
+		for (int i = 0; i < setCover.size(); i ++) { 
+			for (int j = 0; j < setCover.get(i).size(); j++) {
+				if (hmap.get(setCover.get(i).get(j)) != null) {
+					hmap.put(setCover.get(i).get(j), true);
+				} else {
+					System.out.printf("Elemenet %d found in set %d " +
+							"is not found in hmap (i.e. elements)", 
+							setCover.get(i).get(j), 
+							i);
+					System.exit(0);
+				}
+			}
+		}
+		
+		ArrayList<Boolean> hv = (ArrayList<Boolean>) hmap.values();
+		for (int i = 0; i < hv.size(); i++) { 
+			if (hv.get(i) == false) return false;
+		}
+				
+		return true;
 		
 	}
 	
