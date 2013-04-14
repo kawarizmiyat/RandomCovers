@@ -1,0 +1,18 @@
+In this project, 
+1) a set of circles with constant radius are placed 
+randomly on a rectangle. We check whether the triangle is fully 
+covered by the cirlces. That is each point in the rectangle is 
+inside one of the circles. We solve this issue using Voronoi
+diagrams.
+
+2) We modify the radius of the circles in a way such that all 
+poitns are covered.
+
+3) We generate random targets in the triangle. 
+
+4) We find a set of circles that cover  all targets. 
+
+5) if k is the size of the set cover, and r is the number of 
+of circles required, then we add an additional r-k circles on 
+random positions. This allows to generate a set of r circles that
+cover all targets in a given rectangle.  
