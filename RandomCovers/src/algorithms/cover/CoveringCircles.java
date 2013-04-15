@@ -25,8 +25,36 @@ public class CoveringCircles {
 	}
 	
 	
-	
-	
+	public void generateRandomNormalPoints(int n, int X, int Y, double u, 
+			double var, char type)  { 
+
+		ArrayList<Point2D> p = new ArrayList<Point2D>();
+		while (p.size() < n) {
+			double px = getGaussian(u, var);
+			double py = getGaussian(u, var);
+			if (px >= 0 & px <= X & py >= 0 & py <= Y ) { 
+				p.add(new Point2D.Double(px, py));
+			}
+		}
+		
+		if (type == 'r') { 
+			points.clear(); 
+			points.addAll(p);
+		} else if (type == 't') { 
+			tags.clear();
+			tags.addAll(p);
+		} else {
+			System.out.println("Error: it is not specified which arrayList should be modified. options: r or t");
+		}
+		
+	}
+
+	// From javapractices.com
+	private double getGaussian(double u, double var) {
+		return u + new Random().nextGaussian() * var;
+	}
+
+
 	public void generateRandomPoints(int numberNodes, int maxX, int maxY, char r) { 
 
 		

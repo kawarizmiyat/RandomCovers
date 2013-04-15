@@ -53,13 +53,12 @@ public class Graph {
 	
 	// Printing List graph: 
 	public void printListGraph() {
+		
+	
 		System.out.println("Printing a listed Bipartite graph: ");
-		for (int i = 0; i < listGraph.size(); i++) {
-			for (int j = 0; j < listGraph.get(i).size(); j++) { 
-				System.out.printf("%d ", listGraph.get(i).get(j));
-			}
-			System.out.println();
-		}
+		System.out.print(strListGraph());
+		
+
 	}
 
 	
@@ -101,6 +100,21 @@ public class Graph {
 		
 	}
 
+	
+	
+	public String strListGraph() {
+		String str = "";
+		
+		for (int i = 0; i < listGraph.size(); i++) {
+			for (int j = 0; j < listGraph.get(i).size(); j++) { 
+				str += listGraph.get(i).get(j); 
+				str += " ";
+				
+			}
+			str += "\n";
+		}		
+		return str;
+	}
 	
 	
 }

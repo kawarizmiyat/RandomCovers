@@ -1,12 +1,21 @@
 package algorithms.cover;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class SetCover {
 
-	private static boolean D = false;
+	private static boolean D = true;
+	private static int numMarkedElements = 0;
+	private static ArrayList<Boolean> markedElements; 
+	
+	public SetCover() { 
+		markedElements = new ArrayList<Boolean>();
+	}
 	
 	public static ArrayList<Integer> execute(
 			ArrayList<ArrayList<Integer>> sets, ArrayList<Integer> elements) {
@@ -14,12 +23,15 @@ public class SetCover {
 
 
 		if (D) { System.out.println("at Set cover"); }
+
 		
+		// Initiation:
+		numMarkedElements = 0;
 		ArrayList<ArrayList<Integer> > copySets = new ArrayList<ArrayList<Integer> >();
 		copySets.addAll(sets);
 		
 		ArrayList<Integer> coverSets = new ArrayList<Integer>();
-		ArrayList<Boolean> markedElements = new ArrayList<Boolean>();
+		markedElements = new ArrayList<Boolean>();
 		for (int i = 0; i < elements.size(); i++) markedElements.add(false); 
 		
 		
@@ -36,19 +48,15 @@ public class SetCover {
 			
 	
 			for (int i = 0; i < copySets.get(maxIndex).size(); i++) { 
-				markedElements.set(copySets.get(maxIndex).get(i), true);
-
-				if (D) { 
-					System.out.printf("Marking element %d \n", copySets.get(maxIndex).get(i));
-				}
+				markElement(markedElements, copySets.get(maxIndex).get(i));
 			}
 			
-			// do the intersection.
-			for (int i = 0; i< copySets.size(); i++) {
-				
-				ArrayList<Integer> re = removeElements(copySets.get(maxIndex), copySets.get(i)); 
+			ArrayList<Integer> toRemove = new ArrayList<Integer>(); 
+			toRemove.addAll(copySets.get(maxIndex));
 			
-				// TODO: Do we really need this ?
+			for (int i = 0; i< copySets.size(); i++) {
+				ArrayList<Integer> re = removeElements(toRemove, copySets.get(i)); 
+				// copySets.get(i).clear();
 				copySets.set(i, re);
 			}
 			
@@ -73,6 +81,24 @@ public class SetCover {
 
 	
 	
+	private static void markElement(ArrayList<Boolean> markedElements, int i) {
+		if (i >= markedElements.size()) { 
+			System.err.printf("There is an error in markElements");
+		}
+		
+		System.out.printf("Trying to mark %d ", i);
+		System.out.println(markedElements.get(i));
+		
+		if (markedElements.get(i) == false) { 
+			markedElements.set(i, true);
+			numMarkedElements ++;
+			System.out.printf("Marking element %d \n", i); 
+		}
+		
+	}
+
+
+
 	private static ArrayList<Integer> removeElements(ArrayList<Integer> smallList, ArrayList<Integer> bigList) { 
 
 		// TODO: In order to improve execution of this function and the 
@@ -104,7 +130,7 @@ public class SetCover {
 		int i = 0, j = 0;
 		while ( i < bigList.size() && j < smallList.size())  { 
 			
-			if (D) {
+			if (D & false) {
 			System.out.printf("Comparing (s(%d)): %d to l(%d): %d \n", 
 					j, smallList.get(j), 
 					i, bigList.get(i));
@@ -134,6 +160,13 @@ public class SetCover {
 		for (;i < bigList.size(); i++)
 			result.add(bigList.get(i)); 
 		
+		if (D) {
+			System.out.println("and the result is : "); 
+			for (int k = 0; k < result.size(); k++) 
+				System.out.printf("%d ", result.get(k));
+			System.out.println();
+		}
+		
 		return result; 
 	}
 	
@@ -143,16 +176,10 @@ public class SetCover {
 	// Note that this assumes that elements are from a range of 1:n.
 	private static boolean allMarked(ArrayList<Boolean> markedElements) {
 
-		for (int i = 0; i < markedElements.size(); i++ ) { 
-			if (markedElements.get(i) == false) { 
-				if (D) { 
-					System.out.printf("element %d is not marked yet \n", i); 
-				}
-				return false; 
-			}
-		}
-		
-		return true;
+		System.out.printf("numMarkedElement %d, size; %d \n", numMarkedElements, 
+				markedElements.size());
+		return (numMarkedElements == markedElements.size());
+
 	}
 
 	// This finds the maximum sized list in S
@@ -169,6 +196,13 @@ public class SetCover {
 		
 		if (maxIndex == -1) { 
 			System.err.println("There must be an error in findMaxSizeList");
+			
+			for (int i = 0; i < markedElements.size(); i++) { 
+				if (markedElements.get(i) == false) { 
+					System.out.printf("%d is not covered \n", i);
+				}
+			}
+			
 			System.exit(0);
 		}
 		
@@ -204,9 +238,12 @@ public class SetCover {
 			}
 		}
 		
-		ArrayList<Boolean> hv = (ArrayList<Boolean>) hmap.values();
-		for (int i = 0; i < hv.size(); i++) { 
-			if (hv.get(i) == false) return false;
+		Iterator<Boolean> it = hmap.values().iterator(); 
+		while (it.hasNext()) { 
+			
+			if (it.next() == false) {
+				return false;
+			}
 		}
 				
 		return true;
