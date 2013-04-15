@@ -37,7 +37,10 @@ public class SetCover {
 	
 			for (int i = 0; i < copySets.get(maxIndex).size(); i++) { 
 				markedElements.set(copySets.get(maxIndex).get(i), true);
-				System.out.printf("Marking element %d \n", copySets.get(maxIndex).get(i));
+
+				if (D) { 
+					System.out.printf("Marking element %d \n", copySets.get(maxIndex).get(i));
+				}
 			}
 			
 			// do the intersection.

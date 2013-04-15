@@ -10,6 +10,8 @@ public class BipartiteUDG extends Graph {
 
 	public BipartiteUDG() {
 		super();
+		SPoints = new ArrayList<Point2D>(); 
+		TPoints = new ArrayList<Point2D>();
 	}
 	
 	@SuppressWarnings("unused")
@@ -54,6 +56,19 @@ public class BipartiteUDG extends Graph {
 		
 		return true;
 
+	}
+
+	// work only on list graphs.
+	public ArrayList<Integer> findCoveredReaders() {
+		
+		ArrayList<Integer> cr = new ArrayList<Integer>();
+		for (int i = 0; i < listGraph.size(); i++) { 
+			if (listGraph.size() > 0) { 
+				cr.add(i);
+			} 
+			
+		}
+		return cr; 
 	}
 	
 	

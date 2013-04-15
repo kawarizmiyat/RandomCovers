@@ -10,7 +10,7 @@ import algorithms.voronoi.*;
 
 public class CoveringCircles {
 
-	public boolean D;
+	public boolean D = false;
 	public double maxX, maxY; 
 	public ArrayList<Point2D> points; 
 	public ArrayList< ArrayList<Point2D> > vorSites; 
@@ -41,7 +41,7 @@ public class CoveringCircles {
 			double y = new Random().nextDouble() * maxY; 
 			tempPoints.add(new Point2D.Double(x,y));
 			
-			if (true) {
+			if (D) {
 				System.out.printf("new point (%f, %f) \n", x, y);
 			}
 		}
@@ -62,7 +62,7 @@ public class CoveringCircles {
 		if (points == null) { return false; }
 		if (points.size() == 0) { return false; }
 		
-		System.out.printf("Generating Voronoi Sites for %d points \n", points.size());
+		if (D) { System.out.printf("Generating Voronoi Sites for %d points \n", points.size()); }
 		
 		double minDistance = 1; 
 		Voronoi v = new Voronoi(minDistance);
@@ -109,22 +109,15 @@ public class CoveringCircles {
 		
 		System.out.println("Pringint table "); 
 		for (int i = 0; i < vorSites.size(); i++) { 
-			// System.out.printf("site(%d): ", i);
-			// System.out.println("pos: " + points[i] );
 			
 			for (int j = 0; j < vorSites.get(i).size(); j++) {
-				// System.out.print("\tp(" + j + "): " + vorSites.get(i).get(j) + " ");
 				double tempDistance = points.get(i).distance(vorSites.get(i).get(j)); 
 				
 				if (tempDistance > maxCoverDistance) { maxCoverDistance = tempDistance; }
 				
-				// System.out.print("\t -- dist(): " + tempDistance );
-				// System.out.println();
 			}
-			// System.out.println();
 		}
 		
-		// System.out.printf("Max Cover distance : %f ", maxCoverDistance);
 	
 	}
 	
