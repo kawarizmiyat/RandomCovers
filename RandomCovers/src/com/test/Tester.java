@@ -163,8 +163,7 @@ public class Tester {
 				maxX/2, maxX/2, 'r'); 
 		r.generateRandomNormalPoints(numTags, maxX, maxY, 
 				maxX/2, maxX/8, 't');
-		// r.generateRandomPoints(numReaders, maxX,maxY, 'r'); 
-		// r.generateRandomPoints(numTags, maxX, maxY, 't');
+
 	
 		
 		r.generateVoronoiSites(); 
