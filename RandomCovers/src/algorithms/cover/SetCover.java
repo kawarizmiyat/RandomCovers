@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class SetCover {
 
-	private static boolean D = true;
+	private static boolean D = false;
 	private static int numMarkedElements = 0;
 	private static ArrayList<Boolean> markedElements; 
 	

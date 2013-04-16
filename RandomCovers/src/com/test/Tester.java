@@ -27,8 +27,9 @@ public class Tester {
 	/**
 	 * @param args
 	 */
+	
 	public static void main(String[] args) {
-		
+	// public static void run() {	
 		CoveringCircles coveringReaders = createCoveringReaders(
 				numReaders, numTags, 
 				maxX, maxY);
@@ -157,8 +158,15 @@ public class Tester {
 		// 1: generate random points for readers and tags. 
 		// using CoveringCircles.
 		CoveringCircles r = new CoveringCircles();
-		r.generateRandomPoints(numReaders, maxX,maxY, 'r'); 
-		r.generateRandomPoints(numTags, maxX, maxY, 't');
+
+		r.generateRandomNormalPoints(numReaders, maxX, maxY,
+				maxX/2, maxX/2, 'r'); 
+		r.generateRandomNormalPoints(numTags, maxX, maxY, 
+				maxX/2, maxX/8, 't');
+		// r.generateRandomPoints(numReaders, maxX,maxY, 'r'); 
+		// r.generateRandomPoints(numTags, maxX, maxY, 't');
+	
+		
 		r.generateVoronoiSites(); 
 		r.setMaxDistance(); 
 		

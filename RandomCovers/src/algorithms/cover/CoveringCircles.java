@@ -10,7 +10,7 @@ import algorithms.voronoi.*;
 
 public class CoveringCircles {
 
-	public boolean D = false;
+	public boolean D = true;
 	public double maxX, maxY; 
 	public ArrayList<Point2D> points; 
 	public ArrayList< ArrayList<Point2D> > vorSites; 
@@ -25,14 +25,21 @@ public class CoveringCircles {
 	}
 	
 	
-	public void generateRandomNormalPoints(int n, int X, int Y, double u, 
+	public void generateRandomNormalPoints(int n, double x, double y, double u, 
 			double var, char type)  { 
 
+		this.maxX = x; 
+		this.maxY = y; 
+		
 		ArrayList<Point2D> p = new ArrayList<Point2D>();
 		while (p.size() < n) {
 			double px = getGaussian(u, var);
 			double py = getGaussian(u, var);
-			if (px >= 0 & px <= X & py >= 0 & py <= Y ) { 
+			if (px >= 0 & px <= x & py >= 0 & py <= y ) { 
+				if (D) {
+					System.out.printf("Adding (%f,%f) to points \n",
+							px, py); 
+				}
 				p.add(new Point2D.Double(px, py));
 			}
 		}
@@ -90,9 +97,10 @@ public class CoveringCircles {
 		if (points == null) { return false; }
 		if (points.size() == 0) { return false; }
 		
-		if (D) { System.out.printf("Generating Voronoi Sites for %d points \n", points.size()); }
+		if (D) { 
+			System.out.printf("Generating Voronoi Sites for %d points \n", points.size()); }
 		
-		double minDistance = 1; 
+		double minDistance = 0.05; 
 		Voronoi v = new Voronoi(minDistance);
 		
 		double[] xS = new double[points.size()];
@@ -100,7 +108,7 @@ public class CoveringCircles {
 		for (int i = 0; i < points.size(); i++) { 
 			xS[i] = points.get(i).getX(); 
 			yS[i] = points.get(i).getY();
-			System.out.printf("(%f,%f) ", xS[i], yS[i]);
+			System.out.printf("(%f,%f) \n", xS[i], yS[i]);
 		}
 		
 		
