@@ -28,7 +28,7 @@ public class Tester {
 	 * @param args
 	 */
 	
-	public static void main(String[] args) {
+	public void run() {
 	// public static void run() {	
 		CoveringCircles coveringReaders = createCoveringReaders(
 				numReaders, numTags, 
@@ -81,7 +81,7 @@ public class Tester {
 		
 	}
 	
-	private static String generateGnuPlotScript(String output) {
+	private String generateGnuPlotScript(String output) {
 		String s = ""; 
 		
 		s += "set terminal gif \n"; 
@@ -97,7 +97,7 @@ public class Tester {
 		
 	}
 
-	private static String circlesToString(ArrayList<Point2D> p, double r) {
+	private String circlesToString(ArrayList<Point2D> p, double r) {
 		String str = "";
 		for (int i = 0; i < p.size(); i++) { 
 			str += p.get(i).getX();
@@ -110,7 +110,7 @@ public class Tester {
 		return str;
 	}
 
-	private static String pointsToString(ArrayList<Point2D> p) {
+	private String pointsToString(ArrayList<Point2D> p) {
 		String str = "";
 		for (int i = 0; i < p.size(); i++) { 
 			str += p.get(i).getX();
@@ -121,7 +121,7 @@ public class Tester {
 		return str;
 	}
 
-	private static void printFile(String filename, String content) {
+	private void printFile(String filename, String content) {
 		try {
 			 
  
@@ -147,7 +147,7 @@ public class Tester {
 
 	// Create a set of covering reader for the sets T, 
 	// build it over the set of readers R 
-	public static CoveringCircles createCoveringReaders(int numReaders, 
+	public CoveringCircles createCoveringReaders(int numReaders, 
 			int numTags,
 			int maxX, 
 			int maxY) {
@@ -251,7 +251,7 @@ public class Tester {
 
 	
 
-	private static ArrayList<Point2D> createAdditionalPoints(int k, int X,
+	private ArrayList<Point2D> createAdditionalPoints(int k, int X,
 			int Y) {
 
 		ArrayList<Point2D> additionalPoints = new ArrayList<Point2D>();
@@ -268,7 +268,7 @@ public class Tester {
 
 
 
-	private static ArrayList<Point2D> createBackbone(
+	private ArrayList<Point2D> createBackbone(
 			ArrayList<Integer> coverSets, CoveringCircles c) {
 
 		ArrayList<Point2D> backbone = new ArrayList<Point2D>(); 
