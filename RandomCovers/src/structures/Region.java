@@ -1,6 +1,7 @@
 package structures;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -32,6 +33,20 @@ public class Region {
 		neighbors = new ArrayList<IntegerPair>();
 		filled = 0; 
 	}
+	
+	public Region(Region r) { 
+		this.point = new Point2D.Double(r.point.getX(), r.point.getY()); 
+		this.width = r.width; 
+		this.length = r.length; 
+		this.filled = r.filled; 
+		this.leftNeighbor = new IntegerPair(r.leftNeighbor);
+		this.rightNeighbor = new IntegerPair(r.rightNeighbor);
+		this.upNeighbor = new IntegerPair(r.upNeighbor);
+		this.downNeighbor = new IntegerPair(r.downNeighbor);
+		
+		this.neighbors = r.neighbors; 
+	}
+	
 	
 	public boolean isFilled() { 
 		return (filled > 0);
@@ -104,6 +119,25 @@ public class Region {
 		if (filled < MAX_FILLED) {
 			filled ++; 
 		}
+	}
+
+	public Point2D generateRandomPoint() {
+
+		double x, y; 
+		Point2D coord = getRegionCoord();
+		
+		Random rgen = new Random();
+		x = coord.getX() + (rgen.nextDouble() * this.width); 
+		y = coord.getY() + (rgen.nextDouble() * this.length);
+		
+		return new Point2D.Double(x,y);
+		
+	}
+
+	public Point2D getRegionCoord() {
+		double x = i * this.width; 
+		double y = j * this.length; 
+		return new Point2D.Double(x,y);
 	}
 
 	
