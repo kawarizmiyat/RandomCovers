@@ -40,9 +40,9 @@ public class RegionTester {
 		a.printf("Filled regions: \n");
 		for (int i = 0; i < g.regions.size(); i++) {
 			Region r = g.regions.get(i);
-			if (r.filled) {
-				a.printf("%d (%d, %d) \n", 
-						r.id, r.i, r.j );
+			if (r.isFilled()) {
+				a.printf("%d (%d, %d): %d \n", 
+						r.id, r.i, r.j , r.filled);
 			}
 		}
 		
@@ -63,7 +63,7 @@ public class RegionTester {
 		s += "unset object \n";
 		for (int i = 0; i < g.regions.size(); i++ ) {
 			r = g.regions.get(i); 
-			if (r.filled) {
+			if (r.isFilled()) {
 			
 			x1 = r.i; 
 			y1 = r.j; 
@@ -75,7 +75,26 @@ public class RegionTester {
 			s += x1 + " , " + y1 ; 
 			s += " to "; 
 			s += x2 + " , " + y2; 
-			s += " fc rgb 'grey90' \n"; 
+			
+			switch (r.filled) {
+				case 1: 
+					s += " fc rgb 'grey90' \n";
+					break;
+				case 2: 
+					s += " fc rgb 'grey70' \n"; 
+					break; 
+				case 3: 
+					s += " fc rgb 'grey50' \n";
+					break; 
+				case 4:
+					s += " fc rgb 'grey30' \n"; 
+					break; 
+				default: 
+					a.printf("r.filled %d value is not accepted \n",
+						r.filled);
+					System.exit(0);
+					break;
+			}
 			}
 		}
 		
@@ -110,7 +129,7 @@ public class RegionTester {
 		
 		
 		// Fille region r. 
-		r.filled = true; 
+		r.increaseFilled(); 
 		filledIndices.add(randomRegionIndex);
 		a.printf("Adding %d to filled regions which has index (%d,%d) \n", 
 				randomRegionIndex,
@@ -124,11 +143,11 @@ public class RegionTester {
 			// Pick a random filled region. -- call it r. 
 			randomFilledRegion = filledIndices.get(new Random().nextInt(filledIndices.size())); 
 			r = g.regions.get(randomFilledRegion);
-			
+
+			// debug
 			a.printf("Picking %d as a random filled region which has index (%d,%d) \n", 
 					randomFilledRegion,
 					r.i, r.j);
-			
 			
 
 			
@@ -143,7 +162,7 @@ public class RegionTester {
 			
 			
 			// Add random neighbor of r to filledIndices.
-			g.regions.get(randomRegionIndex).filled = true;
+			g.regions.get(randomRegionIndex).increaseFilled();
 			filledIndices.add(randomRegionIndex) ;
 	
 			a.printf("Adding %d to filled regions \n", randomRegionIndex);

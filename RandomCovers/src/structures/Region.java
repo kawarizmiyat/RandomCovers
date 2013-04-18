@@ -9,12 +9,13 @@ import java.util.Random;
 public class Region {
 
 	
+	private static final int MAX_FILLED = 4;
 	public int width, length; 
 	public Point2D point; 
 	public int i, j; 
 	public IntegerPair leftNeighbor, rightNeighbor, upNeighbor, downNeighbor; 
 	public ArrayList<IntegerPair> neighbors;
-	public boolean filled;  
+	public int filled;  
 	public int id;
 	
 	
@@ -29,7 +30,11 @@ public class Region {
 		downNeighbor = null; 
 		
 		neighbors = new ArrayList<IntegerPair>();
-		filled = false; 
+		filled = 0; 
+	}
+	
+	public boolean isFilled() { 
+		return (filled > 0);
 	}
 	
 	public void setId(int id) {
@@ -93,6 +98,12 @@ public class Region {
 		int ri = new Random().nextInt(neighbors.size());
 		return neighbors.get(ri);
 		
+	}
+
+	public void increaseFilled() {
+		if (filled < MAX_FILLED) {
+			filled ++; 
+		}
 	}
 
 	
