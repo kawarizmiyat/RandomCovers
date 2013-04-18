@@ -5,11 +5,17 @@ import java.util.ArrayList;
 
 public class Grid {
 
-	PrintStream a = System.out; 
+	private PrintStream a = System.out; 
+	private boolean D = true;
+	
+	
 	public ArrayList<Region> regions; 
 	public int gridWidth, gridLength; 
 	public int maxI, maxJ; 
 	public int regionWidth, regionLength; 
+	
+	
+	
 	
 	public Grid(int w, int l, int maxW, int maxL) { 
 
@@ -20,14 +26,25 @@ public class Grid {
 		
 		maxI = gridWidth / regionWidth - 1; 
 		maxJ = gridLength / regionWidth - 1;
-		
-		
 		regions = new ArrayList<Region>();
-		int slowI = 0, slowJ = 0; 
+
+		initThis();
+	
+	}
+
+	
+	private void initThis() {
+
+		int slowI = 0, slowJ = 0;
+		int id = 0; 
 		for (int i = 0; i < gridWidth; i = i + regionWidth) {
 			for (int j = 0; j < gridLength; j = j + regionLength) { 
 				Region r = new Region((double) i, (double) j, regionWidth, regionLength); 
 				r.setIndex(slowI, slowJ);
+				r.setId(id);
+				
+				
+				id ++;
 				regions.add(r);
 				slowJ ++;
 			}
@@ -36,10 +53,9 @@ public class Grid {
 		}
 
 		assignNeighbors();
-	
 	}
 
-	
+
 	public void print() { 
 
 		a.println("Printing regions ");
@@ -89,8 +105,9 @@ public class Grid {
 	}
 
 	
-	private int covert2Dto1D(int i, int j, int maxJ) {
-		return i*maxJ + j;  
+	
+	public int convert2Dto1D(IntegerPair p) {
+		return p.x*(maxJ+1) + p.y;  
 	}
 	
 }

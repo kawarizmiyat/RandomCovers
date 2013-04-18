@@ -15,6 +15,7 @@ import java.util.Random;
 import algorithms.cover.*;
 import algorithms.graph.*;
 import algorithms.voronoi.*;
+import my.util.*; 
 
 public class Tester {
 
@@ -60,17 +61,17 @@ public class Tester {
 		System.out.printf("old cd: %f - new cd: %f \n", cmr, coveringReaders.getMaxDistance());
 		
 		
-		printFile("listGraph1.txt", coveringBip.strListGraph()); 
+		MyUtil.printFile("listGraph1.txt", coveringBip.strListGraph()); 
 				
 		String ps = circlesToString(coveringReaders.points, coveringReaders.maxCoverDistance);
 		String ts = pointsToString(coveringReaders.tags);
 		
-		printFile("readers1.txt", ps);
-		printFile("tags1.txt", ts);
+		MyUtil.printFile("readers1.txt", ps);
+		MyUtil.printFile("tags1.txt", ts);
 		
 		
 		String script = generateGnuPlotScript("scatter.gif");
-		printFile("script.p", script);
+		MyUtil.printFile("script.p", script);
 
 		try {
 			Runtime.getRuntime().exec("gnuplot script.p");
@@ -121,29 +122,6 @@ public class Tester {
 		return str;
 	}
 
-	private void printFile(String filename, String content) {
-		try {
-			 
- 
-			File file = new File(filename);
- 
-			// if file doesnt exists, then create it
-			if (!file.exists()) {
-				file.createNewFile();
-			}
- 
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
- 
-			System.out.printf("Done writing at %s \n", filename);
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
 
 	// Create a set of covering reader for the sets T, 
 	// build it over the set of readers R 

@@ -2,6 +2,9 @@ package structures;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
+
+
 
 public class Region {
 
@@ -10,7 +13,9 @@ public class Region {
 	public Point2D point; 
 	public int i, j; 
 	public IntegerPair leftNeighbor, rightNeighbor, upNeighbor, downNeighbor; 
-	public ArrayList<IntegerPair> neighbors; 
+	public ArrayList<IntegerPair> neighbors;
+	public boolean filled;  
+	public int id;
 	
 	
 	public Region(double x, double y, int w, int l) { 
@@ -23,7 +28,12 @@ public class Region {
 		upNeighbor = null; 
 		downNeighbor = null; 
 		
-		ArrayList<IntegerPair> neighbor = new ArrayList<IntegerPair>();
+		neighbors = new ArrayList<IntegerPair>();
+		filled = false; 
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public void setIndex(int x, int y) { 
@@ -60,27 +70,29 @@ public class Region {
 	}
 
 	public void setLeftNeighbor(IntegerPair leftNeighbor) {
-		this.leftNeighbor.x = leftNeighbor.x;
-		this.leftNeighbor.y = leftNeighbor.y;
+		this.leftNeighbor = new IntegerPair(leftNeighbor.x, leftNeighbor.y);
 		neighbors.add(new IntegerPair(leftNeighbor));
 	}
 
 	public void setRightNeighbor(IntegerPair rightNeighbor) {
-		this.rightNeighbor.x = rightNeighbor.x;
-		this.rightNeighbor.y = rightNeighbor.y;
+		this.rightNeighbor = new IntegerPair(rightNeighbor.x, rightNeighbor.y); 
 		neighbors.add(new IntegerPair(rightNeighbor));
 	}
 
 	public void setUpNeighbor(IntegerPair upNeighbor) {
-		this.upNeighbor.x = upNeighbor.x;
-		this.upNeighbor.y = upNeighbor.y;
+		this.upNeighbor = new IntegerPair(upNeighbor.x, upNeighbor.y);
 		neighbors.add(new IntegerPair(upNeighbor));
 	}
 
 	public void setDownNeighbor(IntegerPair downNeighbor) {
-		this.downNeighbor.x = downNeighbor.x;
-		this.downNeighbor.y = downNeighbor.y;
+		this.downNeighbor = new IntegerPair(downNeighbor.x, downNeighbor.y);
 		neighbors.add(new IntegerPair(downNeighbor));
+	}
+
+	public IntegerPair getRandomNeighbor() {
+		int ri = new Random().nextInt(neighbors.size());
+		return neighbors.get(ri);
+		
 	}
 
 	
