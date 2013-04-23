@@ -1,6 +1,7 @@
 package com.generator;
 
 import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import my.util.MyUtil;
@@ -12,28 +13,32 @@ import algorithms.graph.BipartiteUDG;
 
 
 // TODO: create NormalGenerator.  --- the only change is in (createCoveringReaders)
-public class UniformGenerator {
+public class RandomGraphGenerator {
 
 	private static boolean D = false;
 	
-	public static void generateRandomUniformCovers(int n, int numReaders, 
+	public static void generateRandomGraphs(int n, int numReaders, 
 			int numTags, int maxX, int maxY, 
-			String foldername, String filenamePrefix) { 
+			String foldername, String filenamePrefix, 
+			char type, int factorReaders, int factorTags) { 
 		
 		ArrayList<BipartiteUDG> graphs = new ArrayList<BipartiteUDG>();
+		
 		
 		int i = 0; 
 		while (i < n)  { 
 			
 			CoveringCircles coveringReaders = createCoveringReaders(
 					numReaders, numTags, 
-					maxX, maxY);
+					maxX, maxY, type, factorReaders, factorTags);
 
 			BipartiteUDG coveringBip = new BipartiteUDG();
 			
 			coveringBip.createAdjGraph(coveringReaders.points, 
 					coveringReaders.tags, 
 					coveringReaders.maxCoverDistance);
+			coveringBip.adjToListGraph();
+			
 			
 			
 			graphs.add(coveringBip);
@@ -44,12 +49,21 @@ public class UniformGenerator {
 		// print at a given file folder. 
 		print(graphs, foldername, filenamePrefix);
 		
+		
+		
 	}
 	
 	public static void print(ArrayList<BipartiteUDG> graphs, String foldername, 
 			String filenamePrefix) { 
 		
-		// TODO: -- create folder if it does not exist. 
+		
+		try {
+			Runtime.getRuntime().exec("mkdir " + foldername);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		for (int i = 0; i < graphs.size(); i++) { 
 			String content = graphs.get(i).strListGraph();
 			String filename = foldername + "/" + filenamePrefix + "_" + i + ".dat";
@@ -64,7 +78,8 @@ public class UniformGenerator {
 	public static CoveringCircles createCoveringReaders(int numReaders, 
 			int numTags,
 			int maxX, 
-			int maxY) {
+			int maxY, char type, 
+			int factorReaders, int factorTags) {
 		
 		
 
@@ -73,12 +88,17 @@ public class UniformGenerator {
 		// using CoveringCircles.
 		CoveringCircles r = new CoveringCircles();
 
-		// r.generateRandomNormalPoints(numReaders, maxX, maxY,
-		// 		maxX/2, maxX/2, 'r'); 
-		// r.generateRandomNormalPoints(numTags, maxX, maxY, 
-		// 		maxX/2, maxX/8, 't');
-		r.generateRandomPoints(numReaders, maxX,maxY, 'r'); 
-		r.generateRandomPoints(numTags, maxX, maxY, 't');
+		if (type == 'u') { 
+			r.generateRandomPoints(numReaders, maxX,maxY, 'r'); 
+			r.generateRandomPoints(numTags, maxX, maxY, 't');
+		} else if (type == 'n') { 
+			r.generateRandomNormalPoints(numReaders, maxX, maxY,
+			 		maxX/factorReaders, maxX/factorReaders, 'r'); 
+			r.generateRandomNormalPoints(numTags, maxX, maxY, 
+			 		maxX/factorTags, maxX/factorTags, 't');
+			
+		}
+		
 	
 		
 		r.generateVoronoiSites(); 

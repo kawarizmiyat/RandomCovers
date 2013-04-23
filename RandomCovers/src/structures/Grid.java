@@ -186,7 +186,10 @@ public class Grid {
 		int x1, y1, x2, y2; 
 		Region r; 
 		
-		s += "unset object \n";
+		s += "unset object \n\n";
+		
+
+		
 		for (int i = 0; i < this.regions.size(); i++ ) {
 			r = this.regions.get(i); 
 			if (r.isFilled()) {
@@ -228,7 +231,7 @@ public class Grid {
 		s += "set xrange [0: " + this.gridWidth + " ] \n";
 		s += "set yrange [0: " + this.gridLength + " ] \n";
 		s += "plot [0:6] x lw 0 t '' \n"; 
-		s += "plot 'reg_points.dat' using 1:2 notitle \n";
+		s += "plot 'reg_tags.dat' using 1:2 notitle, 'reg_readers.dat' using 1:2 notitle \n";
 
 		MyUtil.printFile(filename, s);
 		

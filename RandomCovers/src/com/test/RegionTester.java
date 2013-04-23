@@ -1,8 +1,12 @@
 package com.test;
 
 import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
+import algorithms.cover.SetCover;
+import algorithms.graph.BipartiteUDG;
 import my.util.MyUtil;
 
 import structures.Grid;
@@ -50,17 +54,49 @@ public class RegionTester {
 		
 		// TODO: 
 		// create with different distributions:
-		ArrayList<Point2D> points = 
+		ArrayList<Point2D> tags = 
 				g.generateRegionalizedPoints(500);
-		String ps = pointsToString(points); 
-		MyUtil.printFile("reg_points.dat", ps);
+		String ts = pointsToString(tags); 
+		MyUtil.printFile("reg_tags.dat", ts);
 
 		
+		ArrayList<Point2D> readers = 
+				g.generateRegionalizedPoints(50);
+		String rs = pointsToString(readers);
+		MyUtil.printFile("reg_readers.dat", rs);
+		
+
+		// generate a gnuplot script file
 		g.createRectangleScript("rect_script.p");
+		
+		
+		// Creating bipartite graph ! 
+		BipartiteUDG coveringBip = new BipartiteUDG();
+		
+		coveringBip.createAdjGraph(readers, 
+				tags, 
+				g.regionLength);
+		
+		coveringBip.adjToListGraph();
+		coveringBip.printListGraph();		
+		
+		ArrayList<Integer> elements = new ArrayList<Integer>();
+		for (int i = 0; i < tags.size(); i++) elements.add(i); 
+		
+		boolean is = SetCover.isSetCover(coveringBip.listGraph, elements);
+		if (!is) { 
+			System.out.println("this is not a set cover");
+		} else {
+			System.out.println("this is a set cover ");
+		}
+		
+		
 
 		
 	}
 
+	
+	
 	private String pointsToString(ArrayList<Point2D> ps) {
 		Point2D p; 
 		String s = "";
