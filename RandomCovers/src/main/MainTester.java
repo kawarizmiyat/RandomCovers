@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 
+import com.generator.ArbitraryGraphGenerator;
 import com.generator.RandomGraphGenerator;
 import com.generator.RegionalizedGraphGenerator;
 import com.test.RegionTester;
@@ -31,9 +32,13 @@ public class MainTester {
 //		
 
 		
-		RegionalizedGraphGenerator.generateRandomGraphs(numberFiles,
-				5, 5, maxX, maxY, 30, numTags, numReaders, foldername, filenamePrefix);
+		// RegionalizedGraphGenerator.generateRandomGraphs(numberFiles,
+		//		5, 5, maxX, maxY, 30, numTags, numReaders, foldername, filenamePrefix);
 		
+	
+	ArbitraryGraphGenerator.generateRandomGraphs(numberFiles, 
+			numReaders, numTags, 0.5, foldername, filenamePrefix);
+	
 		// new RegionTester().run();
 		
 		

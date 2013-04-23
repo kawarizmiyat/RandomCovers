@@ -30,7 +30,12 @@ public class Graph {
 
 	// Initialize the List graph: 
 	// TODO
-	
+	public void initListGraph(int n) { 
+		for (int i = 0; i < n; i++) { 
+			ArrayList<Integer> t = new ArrayList<Integer>();
+			listGraph.add(t);
+		}
+	}
 
 	
 	// Printing the adjacency matrix
