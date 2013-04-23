@@ -3,12 +3,9 @@ package com.test;
 import java.awt.geom.Point2D;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Random;
-
 import my.util.MyUtil;
 
 import structures.Grid;
-import structures.IntegerPair;
 import structures.Region;
 
 
@@ -35,7 +32,7 @@ public class RegionTester {
 		Grid g = new Grid(width, length, maxW, maxL);
 		// g.print();
 
-		int maxFilled = 20; 
+		int maxFilled = 30; 
 		g.assignWeights(maxFilled);
 		
 		a.printf("Filled regions: \n");
@@ -54,7 +51,7 @@ public class RegionTester {
 		// TODO: 
 		// create with different distributions:
 		ArrayList<Point2D> points = 
-				g.generateRegionalizedPoints(100);
+				g.generateRegionalizedPoints(500);
 		String ps = pointsToString(points); 
 		MyUtil.printFile("reg_points.dat", ps);
 

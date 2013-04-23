@@ -1,4 +1,4 @@
-package com.test;
+package main;
 
 public class MainTester {
 
@@ -7,8 +7,7 @@ public class MainTester {
 	 */
 	public static void main(String[] args) {
 		
-		RegionTester rg = new RegionTester(); 
-		rg.run();
+		
 
 	}
 

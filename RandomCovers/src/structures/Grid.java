@@ -204,16 +204,16 @@ public class Grid {
 			
 			switch (r.filled) {
 				case 1: 
-					s += " fc rgb 'grey90' \n";
+					s += " fc rgb 'grey90' lw 0 \n";
 					break;
 				case 2: 
-					s += " fc rgb 'grey70' \n"; 
+					s += " fc rgb 'grey70' lw 0 \n"; 
 					break; 
 				case 3: 
-					s += " fc rgb 'grey50' \n";
-					break; 
+					s += " fc rgb 'grey50' lw 0 \n";
+					break;  
 				case 4:
-					s += " fc rgb 'grey30' \n"; 
+					s += " fc rgb 'grey30' lw 0 \n"; 
 					break; 
 				default: 
 					a.printf("r.filled %d value is not accepted \n",

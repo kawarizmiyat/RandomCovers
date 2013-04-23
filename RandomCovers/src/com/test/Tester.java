@@ -1,25 +1,14 @@
 package com.test;
 
 import java.awt.geom.Point2D;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-
 import algorithms.cover.*;
 import algorithms.graph.*;
-import algorithms.voronoi.*;
 import my.util.*; 
 
 public class Tester {
 
-	
 	private static int numReaders = 10; 
 	private static int numTags = 50; 
 	private static int maxX = 30; 
@@ -76,7 +65,7 @@ public class Tester {
 		try {
 			Runtime.getRuntime().exec("gnuplot script.p");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
@@ -262,7 +251,7 @@ public class Tester {
 
 
 
-	// TODO: shrinkage of points toward the center .. 
+	// Just an idea: shrinkage of points toward the center .. 
 	// It is just an idea.
 	public static Point2D.Double shrinkPoint(Point2D.Double c, Point2D.Double po,  double scale) { 
 		Point2D.Double pn = new Point2D.Double(); 

@@ -101,7 +101,7 @@ public class SetCover {
 
 	private static ArrayList<Integer> removeElements(ArrayList<Integer> smallList, ArrayList<Integer> bigList) { 
 
-		// TODO: In order to improve execution of this function and the 
+		// Remark: In order to improve execution of this function and the 
 		// algorithm overall, make sure that these two sets are sorted 
 		// before entering this method
 		Collections.sort(bigList);
@@ -171,7 +171,7 @@ public class SetCover {
 	}
 	
 
-	// TODO: this could be fixed for performance issues. 
+	// NOTE: this could be fixed for performance issues. 
 	// Example: use a counter. 
 	// Note that this assumes that elements are from a range of 1:n.
 	private static boolean allMarked(ArrayList<Boolean> markedElements) {
